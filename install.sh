@@ -18,10 +18,17 @@ apt upgrade -y
 apt install -y thunar build-essential git libx11-dev libxft-dev libxinerama-dev xorg dmenu unzip lxpolkit x11-xserver-utils unzip wget pulseaudio alacritty pavucontrol 
 
 # Installing software adtional
-apt install -y arandr nitrogen chromium neofetch dunst picom xdg-user-dirs slim
+apt install -y arandr neofetch dunst picom xdg-user-dirs extrepo feh nm-tray #slim
 
+extrepo enable librewolf
+sudo apt update && sudo apt install librewolf -y
 
-# Install Dwm
+curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+install -o root -g root -m 644 microsoft.gpg /etc/apt/keyrings/microsoft-archive-keyring.gpg
+sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/microsoft-archive-keyring.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
+sudo apt-get update && sudo apt-get install code
+
+#Config Extras
 git clone https://github.com/sebabellucci/debian-dwm.git
 cd debian-dwm
 
@@ -31,9 +38,9 @@ mkdir -p /home/$username/Pictures/Wallpapers
 #touch /home/$username/.xinitrc
 #cp .xinitrc /home/$username
 cp -R dotfiles/dotconfig/* /home/$username/.config/
-cp dotfiles/dotextras/Wallpapers/* /home/$username/Pictures/Wallpapers/
-cp dotfiles/dotextras/font/ */usr/share/fonts
-cp dotfies/dotextras/slim/slim.conf /etc
+cp dotfiles/dotextras/wallpapers/* /home/$username/Pictures/Wallpapers/
+cp dotfiles/dotextras/fonts/* /usr/share/fonts
+cp dotfiles/dotextras/slim/slim.conf /etc
 cp -r dotfiles/dotextras/slim/blue-sky /usr/share/slim/themes
 chown -R $username:$username /home/$username
 cd ..
