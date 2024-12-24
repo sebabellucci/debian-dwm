@@ -15,7 +15,10 @@ apt update
 apt upgrade -y
 
 # Install Pre-requisite
-apt install -y thunar build-essential git libx11-dev libxft-dev libxinerama-dev xorg dmenu unzip lxpolkit x11-xserver-utils unzip wget pulseaudio alacritty pavucontrol xdg-user-dirs slim
+apt install -y thunar build-essential git libx11-dev libxft-dev libxinerama-dev xorg dmenu unzip lxpolkit x11-xserver-utils unzip wget pulseaudio alacritty pavucontrol 
+
+# Installing software adtional
+apt install -y arandr nitrogen chromium neofetch dunst picom xdg-user-dirs slim
 
 
 # Install Dwm
@@ -51,14 +54,14 @@ make install clean
 cd ..
 
 # Installing fonts
-wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/JetBrainsMono.zip
-unzip JetBrainsMono.zip -d /usr/share/fonts
+#wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/JetBrainsMono.zip
+#unzip JetBrainsMono.zip -d /usr/share/fonts
 
+xdg-user-dirs-update
 # Reloading Font
 fc-cache -vf
 
 # Removing zip Files
-rm ./JetBrainsMono.zipip
+#rm ./JetBrainsMono.zipip
 
-# Installing software adtional
-apt install -y arandr nitrogen chromium neofetch 
+
