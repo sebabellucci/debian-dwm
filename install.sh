@@ -17,20 +17,20 @@ apt update && apt upgrade -y
 apt install -y thunar build-essential git libx11-dev libxft-dev libxinerama-dev xorg dmenu unzip lxpolkit x11-xserver-utils unzip wget pulseaudio alacritty pavucontrol 
 
 # Installing software adtional
-apt install -y arandr neofetch dunst picom xdg-user-dirs extrepo feh nm-tray slim curl apt-transport-https
+apt install -y arandr neofetch dunst picom xdg-user-dirs extrepo feh nm-tray slim curl apt-transport-https wget gpg
 
 #Install Librewolf
 extrepo enable librewolf
 sudo apt update && sudo apt install librewolf -y
 
 #Install code
-curl https://packages.microsoft.com/config/debian/12/packages-microsoft-prod.deb
-sudo dpkg -i packages-microsoft-prod.deb
-sudo apt-get update && sudo apt-get install code
-#curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
-#install -o root -g root -m 644 microsoft.gpg /etc/apt/keyrings/microsoft-archive-keyring.gpg
-#sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/microsoft-archive-keyring.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
-sudo apt-get update && sudo apt-get install code
+wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
+echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" |sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null
+rm -f packages.microsoft.gpg
+sudo apt update && sudo apt install code # or code-insiders
+
+
 
 #Config Extras
 git clone https://github.com/sebabellucci/debian-dwm.git
