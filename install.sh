@@ -8,24 +8,28 @@ fi
 
 cd /tmp
 username=$(id -u -n 1000)
-builddir=$(pwd)
+#builddir=$(pwd)
 
 # Update packages list and update system
-apt update
-apt upgrade -y
+apt update && apt upgrade -y
 
 # Install Pre-requisite
 apt install -y thunar build-essential git libx11-dev libxft-dev libxinerama-dev xorg dmenu unzip lxpolkit x11-xserver-utils unzip wget pulseaudio alacritty pavucontrol 
 
 # Installing software adtional
-apt install -y arandr neofetch dunst picom xdg-user-dirs extrepo feh nm-tray #slim
+apt install -y arandr neofetch dunst picom xdg-user-dirs extrepo feh nm-tray slim curl apt-transport-https
 
+#Install Librewolf
 extrepo enable librewolf
 sudo apt update && sudo apt install librewolf -y
 
-curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
-install -o root -g root -m 644 microsoft.gpg /etc/apt/keyrings/microsoft-archive-keyring.gpg
-sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/microsoft-archive-keyring.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
+#Install code
+curl https://packages.microsoft.com/config/debian/12/packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+sudo apt-get update && sudo apt-get install code
+#curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+#install -o root -g root -m 644 microsoft.gpg /etc/apt/keyrings/microsoft-archive-keyring.gpg
+#sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/microsoft-archive-keyring.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
 sudo apt-get update && sudo apt-get install code
 
 #Config Extras
@@ -33,16 +37,15 @@ git clone https://github.com/sebabellucci/debian-dwm.git
 cd debian-dwm
 
 # Making .config and Moving config files and background to Pictures
-mkdir -p /home/$username/.config
-mkdir -p /home/$username/Pictures/Wallpapers
-#touch /home/$username/.xinitrc
-#cp .xinitrc /home/$username
-cp -R dotfiles/dotconfig/* /home/$username/.config/
-cp dotfiles/dotextras/wallpapers/* /home/$username/Pictures/Wallpapers/
+mkdir -p ~/.config
+mkdir -p ~/Pictures/Wallpapers
+#touch ~/.xinitrc
+#cp .xinitrc ~/
+cp -R dotfiles/dotconfig/* ~/.config/
+cp dotfiles/dotextras/wallpapers/* ~/Pictures/Wallpapers/
 cp dotfiles/dotextras/fonts/* /usr/share/fonts
 cp dotfiles/dotextras/slim/slim.conf /etc
 cp -r dotfiles/dotextras/slim/blue-sky /usr/share/slim/themes
-chown -R $username:$username /home/$username
 cd ..
 
 # Install Dwm
@@ -64,6 +67,9 @@ cd ..
 #wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/JetBrainsMono.zip
 #unzip JetBrainsMono.zip -d /usr/share/fonts
 
+#update permisions
+chown -R $username:$username ~/
+# create Directory home
 xdg-user-dirs-update
 # Reloading Font
 fc-cache -vf
