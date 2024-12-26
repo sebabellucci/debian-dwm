@@ -11,16 +11,16 @@ username=$(id -u -n 1000)
 #builddir=$(pwd)
 
 # Update packages list and update system
-apt update && apt upgrade -y
+sudo apt update && sudo apt upgrade -y
 
 # Install Pre-requisite
-apt install -y thunar build-essential git libx11-dev libxft-dev libxinerama-dev xorg dmenu unzip lxpolkit x11-xserver-utils unzip wget pulseaudio alacritty pavucontrol 
+sudo apt install -y thunar build-essential git libx11-dev libxft-dev libxinerama-dev xorg dmenu unzip lxpolkit x11-xserver-utils unzip wget pulseaudio pavucontrol volumeicon-alsa
 
 # Installing software adtional
-apt install -y arandr neofetch dunst picom xdg-user-dirs extrepo feh nm-tray slim curl apt-transport-https wget gpg
+sudo apt install -y arandr neofetch dunst picom xdg-user-dirs extrepo feh nm-tray slim curl apt-transport-https wget gpg
 
 #Install Librewolf
-extrepo enable librewolf
+sudo extrepo enable librewolf
 sudo apt update && sudo apt install librewolf -y
 
 #Install code
