@@ -14,10 +14,11 @@ username=$(id -u -n 1000)
 sudo apt update && sudo apt upgrade -y
 
 # Install Pre-requisite
-sudo apt install -y thunar build-essential git libx11-dev libxft-dev libxinerama-dev xorg dmenu unzip lxpolkit x11-xserver-utils unzip wget pulseaudio pavucontrol volumeicon-alsa
+sudo apt install -y thunar build-essential git libx11-dev libxft-dev libxinerama-dev xorg dmenu unzip lxpolkit x11-xserver-utils wget pulseaudio pavucontrol volumeicon-alsa
 
 # Installing software adtional
-sudo apt install -y arandr neofetch dunst picom xdg-user-dirs extrepo feh nm-tray slim curl apt-transport-https wget gpg
+sudo apt install -y arandr neofetch dunst picom xdg-user-dirs extrepo feh nm-tray slim curl apt-transport-https gpg
+sudo apt intall -y pulseaudio-module-bluetooth connman-vpn connman bluez acpid xarchiver acpi-support
 
 #Install Librewolf
 sudo extrepo enable librewolf
@@ -38,11 +39,12 @@ cd debian-dwm
 
 # Making .config and Moving config files and background to Pictures
 mkdir -p ~/.config
-mkdir -p ~/Pictures/Wallpapers
+mkdir -p ~/Pictures/wallpapers
 #touch ~/.xinitrc
 #cp .xinitrc ~/
 cp -R dotfiles/dotconfig/* ~/.config/
-cp dotfiles/dotextras/wallpapers/* ~/Pictures/Wallpapers/
+chmod +x ~/.config/auto-wall.sh
+cp dotfiles/dotextras/wallpapers/* ~/Pictures/wallpapers/
 cp dotfiles/dotextras/fonts/* /usr/share/fonts
 cp dotfiles/dotextras/slim/slim.conf /etc
 cp -r dotfiles/dotextras/slim/blue-sky /usr/share/slim/themes
