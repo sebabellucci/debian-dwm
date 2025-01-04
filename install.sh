@@ -27,7 +27,7 @@ sudo apt update && sudo apt install librewolf -y
 #Install code
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
 sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
-echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" |sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null
+sudo echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" |sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null
 rm -f packages.microsoft.gpg
 sudo apt update && sudo apt install code # or code-insiders
 
@@ -40,10 +40,12 @@ cd debian-dwm
 # Making .config and Moving config files and background to Pictures
 mkdir -p ~/.config
 mkdir -p ~/Pictures/wallpapers
+mkdir -p ~/.local/share/dwm
+
 #touch ~/.xinitrc
 #cp .xinitrc ~/
 cp -R dotfiles/dotconfig/* ~/.config/
-chmod +x ~/.config/auto-wall.sh
+cp dotfiles/dotextras/dwm/autostart.sh ~/.local/share/dwm
 cp dotfiles/dotextras/wallpapers/* ~/Pictures/wallpapers/
 cp dotfiles/dotextras/fonts/* /usr/share/fonts
 cp dotfiles/dotextras/slim/slim.conf /etc
@@ -54,8 +56,6 @@ cd ..
 git clone https://github.com/Ferchupessoadev/dwm.git
 cd dwm
 make clean install
-mkdir -p ~/.local/share/dwm
-cp -r autostart.sh ~/.local/share/dwm/autostart.sh
 cp -r dwmbar ~/.config/dwmbar
 cd ..
 
@@ -71,6 +71,10 @@ cd ..
 
 #update permisions
 chown -R $username:$username ~/
+chmod +x ~/.config/auto-wall.sh
+chmod +x ~/.config/dwmbar/bar.sh
+chmod +x ~/.local/share/dwm/autostart.sh
+
 # create Directory home
 xdg-user-dirs-update
 # Reloading Font
